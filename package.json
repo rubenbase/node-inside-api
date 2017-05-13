@@ -1,0 +1,16 @@
+{
+  "name": "inside",
+  "version": "1.0.0",
+  "description": "App de registro de ventas y gestion interna de una empresa.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ruben Costa",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "hbs": "^4.0.0",
+    "mongoose": "^4.9.8"
+  }
+}
