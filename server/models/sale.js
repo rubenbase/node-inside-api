@@ -46,8 +46,12 @@ var Sale = mongoose.model('Sale', {
     default: false
   },
   completedAt: {
-    type: Number,
+    type: String,
     default: null
+  },
+  startedAt : {
+    type : String,
+    default : null 
   },
   _creator: {
     type: mongoose.Schema.Types.ObjectId,

@@ -18,13 +18,21 @@ app.use(bodyParser.json());
 
 app.post('/sales', authenticate, (req, res) => {
   var sale = new Sale({
-    text: req.body.text,
+    completed: req.body.completed,
+    totalPrice: req.body.totalPrice,
+    description: req.body.description,
+    completedAt: req.body.completedAt,
+    startedAt: req.body.startedAt,
+    products: req.body.products,
+    location: req.body.location,
     _creator: req.user._id
   });
 
   sale.save().then((doc) => {
     res.send(doc);
   }, (e) => {
+    console.log(req);
+    console.log(res);
     res.status(400).send(e);
   });
 });
@@ -81,9 +89,10 @@ app.delete('/sales/:id', authenticate, (req, res) => {
   });
 });
 
-app.patch('/sales/:id', authenticate, (req, res) => {
+app.put('/sales/:id', authenticate, (req, res) => {
   var id = req.params.id;
-  var body = _.pick(req.body, ['text', 'completed']);
+  var body = _.pick(req.body, ['description', 'totalPrice', 'completed', 
+  'completedAt', 'startedAt', 'products', 'location']);
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
@@ -111,7 +120,7 @@ app.patch('/sales/:id', authenticate, (req, res) => {
 app.post('/users', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
   var user = new User(body);
-
+console.log(req.body);
   user.save().then(() => {
     return user.generateAuthToken();
   }).then((token) => {
@@ -130,6 +139,7 @@ app.post('/users/login', (req, res) => {
 
   User.findByCredentials(body.email, body.password).then((user) => {
     return user.generateAuthToken().then((token) => {
+      user.token = token;
       res.header('x-auth', token).send(user);
     });
   }).catch((e) => {
