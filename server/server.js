@@ -1,5 +1,5 @@
 // require('./config/config');
-var stripe = require('stripe')('sk_test_ixjvfb4PeeIyNJgqkKymNwuw');
+var stripe = require('stripe')('sk_test');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
