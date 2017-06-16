@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.post('/processPay', authenticate, (req, res) => {
   var stripeToken = req.body.stripeToken;
   var amountPayable = req.body.amountPayable;
-  var charge = stripe.charge.create({
+  var charge = stripe.charges.create({
     amount: amountPayable,
     currency: 'eur',
     description: 'Product payment',
