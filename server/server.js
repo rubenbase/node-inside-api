@@ -1,9 +1,10 @@
 // require('./config/config');
-
+var stripe = require('stripe')('sk_test');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
+var cors = require('cors');
 
 var {mongoose} = require('./db/mongoose');
 var {Product} = require('./models/product');
@@ -15,6 +16,24 @@ var app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
+
+app.post('/processPay', function (req, res){
+  var stripeToken = req.body.stripeToken;
+  var amountPayable = req.body.amountPayable;
+  var charge = stripe.charge.create({
+    amount: amountPayable,
+    currency: 'eur',
+    description: 'Product payment',
+    source: stripeToken
+  }, function(err, charge){
+    if (err){
+      console.log(err);
+    }else{
+      res.send({success: true});
+    }
+  });
+});
 
 app.post('/sales', authenticate, (req, res) => {
   var sale = new Sale({
