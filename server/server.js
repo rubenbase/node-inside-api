@@ -1,5 +1,5 @@
 // require('./config/config');
-var stripe = require('stripe')('sk_test');
+var stripe = require('stripe')('sk_test_ixjvfb4PeeIyNJgqkKymNwuw');
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -18,7 +18,7 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/processPay', function (req, res){
+app.post('/processPay', authenticate, (req, res) => {
   var stripeToken = req.body.stripeToken;
   var amountPayable = req.body.amountPayable;
   var charge = stripe.charge.create({
