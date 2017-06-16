@@ -4,7 +4,6 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
-var cors = require('cors');
 
 var {mongoose} = require('./db/mongoose');
 var {Product} = require('./models/product');
@@ -16,7 +15,6 @@ var app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use(cors());
 
 app.post('/processPay', authenticate, (req, res) => {
   var stripeToken = req.body.stripeToken;
