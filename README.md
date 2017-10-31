@@ -9,4 +9,6 @@ Features:
 - API call to Stripe.
 - CRUD operations.
 - Authentification.
+- Tests.
 - Examples in the playground folder.
+
